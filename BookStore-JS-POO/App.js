@@ -1,4 +1,5 @@
 const Author = require("../entities/Author")
+const Book = require("../entities/Book")
 const User = require("../entities/User")
 const Database = require("./Database")
 
@@ -21,5 +22,23 @@ module.exports = class App {
 
     getAuthor() {
         return App.#database.find('authors')
+    }
+
+    createBook(title, synopsis, genre, pages, author, description, price, inStock) {
+        const book = new Book(title, synopsis,genre, pages, author, description, price, inStock)
+        App.#database.saveBook(book)
+    }
+
+    addBook(bookName, quantity) {
+        App.#database.addBooksToStock(bookName, quantity)
+    }
+
+    createPoster(name, description,height, width, price, inStock) {
+        const poster = new Poster(name, description,height, width, price, inStock)
+        App.#database.savePoster(poster)
+    }
+
+    addPoster(posterName, quantity) {
+        App.#database.addPostersToStock(posterName, quantity)
     }
 }
