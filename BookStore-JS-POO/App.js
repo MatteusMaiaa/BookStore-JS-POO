@@ -4,6 +4,7 @@ const Order = require("../entities/Order")
 const Product = require("../entities/Product")
 const User = require("../entities/User")
 const Database = require("./Database")
+const Poster = require("../entities/Poster")
 
 module.exports = class App {
     static #database = new Database()
@@ -14,7 +15,7 @@ module.exports = class App {
     }
 
     getUsers() {
-        App.#database.find('users')
+       return App.#database.find('users')
     }
 
     creatAuthor(name, nationality, bio) {
@@ -35,6 +36,10 @@ module.exports = class App {
         App.#database.addBooksToStock(bookName, quantity)
     }
 
+    getBooks() {
+        return App.#database.find('books')
+    }
+
     createPoster(name, description,height, width, price, inStock) {
         const poster = new Poster(name, description,height, width, price, inStock)
         App.#database.savePoster(poster)
@@ -44,13 +49,17 @@ module.exports = class App {
         App.#database.addPostersToStock(posterName, quantity)
     }
 
+    getPoster() {
+        return App.#database.find('posters')
+    }
+
      createOrder(items, user) {
         const order = new Order(items, user)
         App.#database.saveOrder(order)
         order.data.items.forEach(({ product, quantity})=> {
             if (product instanceof Book) {
                 App.#database.removeBooksFromStock(product.name, quantity)
-            } else if (product instanceof poster) {
+            } else if (product instanceof Poster) {
                 App.#database.removePostersFromStock(product.name, quantity )
             } 
         })
@@ -60,7 +69,7 @@ module.exports = class App {
         return App.#database.find('orders')
      }
 
-     showDatabse( ) {
+     showDatabase( ) {
         App.#database.showStorage()
      }
 }
