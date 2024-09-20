@@ -5,7 +5,7 @@ const app = new App()
 app.createAuthor('J. R. R. Tolkien', 'British', '...')
 app.createAuthor('Rick Riordan', 'American', '...')
 
-const authors = app.getAuthor()
+const authors = app.getAuthors()
 
 app.createBook('O Hobbit', '...', 'fantasy', 300, authors[0], '...', 19.99, 100)
 app.createBook('A Sociedade do Anel', '...', 'fantasy', 400, authors[0], '...', 24.99, 100)
@@ -19,7 +19,6 @@ app.createUser('Isaac', 'isaac@email.com', '123456')
 const users = app.getUsers()
 
 app.showDatabase()
-
 
 const items = [
   {
