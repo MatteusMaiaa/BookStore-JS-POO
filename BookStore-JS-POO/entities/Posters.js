@@ -6,4 +6,5 @@ const Product = require("./Product");
         this.height = height
         this.width = width
     }
+    
  }

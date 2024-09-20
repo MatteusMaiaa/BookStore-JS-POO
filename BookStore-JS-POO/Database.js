@@ -60,7 +60,7 @@ module.exports = class Database {
     saveUser(user) {
         const userExists = this.#storage.users.find(u => u.email === user.email)
         if (!userExists) {
-            this.#storage.usera.push(user)
+            this.#storage.users.push(user)
         }
     }
     saveOrder(order) {

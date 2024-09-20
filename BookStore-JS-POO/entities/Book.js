@@ -9,4 +9,5 @@ module.exports = class Book extends Product{
         this.pages = pages
         this.author = author
     }
+    
 }

@@ -22,4 +22,5 @@ module.exports = class Order {
             total: this.#total
         }
     }
+    
 }
