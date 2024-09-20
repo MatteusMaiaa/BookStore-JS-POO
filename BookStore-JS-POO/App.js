@@ -1,5 +1,7 @@
 const Author = require("../entities/Author")
 const Book = require("../entities/Book")
+const Order = require("../entities/Order")
+const Product = require("../entities/Product")
 const User = require("../entities/User")
 const Database = require("./Database")
 
@@ -41,4 +43,24 @@ module.exports = class App {
     addPoster(posterName, quantity) {
         App.#database.addPostersToStock(posterName, quantity)
     }
+
+     createOrder(items, user) {
+        const order = new Order(items, user)
+        App.#database.saveOrder(order)
+        order.data.items.forEach(({ product, quantity})=> {
+            if (product instanceof Book) {
+                App.#database.removeBooksFromStock(product.name, quantity)
+            } else if (product instanceof poster) {
+                App.#database.removePostersFromStock(product.name, quantity )
+            } 
+        })
+     }
+
+     getOrders() {
+        return App.#database.find('orders')
+     }
+
+     showDatabse( ) {
+        App.#database.showStorage()
+     }
 }
